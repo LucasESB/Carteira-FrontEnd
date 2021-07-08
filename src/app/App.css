@@ -1,0 +1,42 @@
+:root {
+    --bg-color-1: #010409;
+    --bg-color-2: #161B22;
+    --bg-color-3: #21262D;
+    --bg-color-4: #30363D;
+
+    --color-text-1: #F0F6FC;
+    --color-text-2: #8B949E;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color-1);
+}
+
+body, input, button, textarea {
+    color: var(--color-text-2);
+    font: 400 12px Roboto, sans-serif;
+}
+
+.app {
+    display: grid;
+    grid-template-columns: 235px 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "menu content";
+    height: 100vh;
+}
+
+aside.menuArea {
+    grid-area: menu;
+    background-color: var(--bg-color-2);
+}
+
+main.content {
+    grid-area: content;
+}
+
