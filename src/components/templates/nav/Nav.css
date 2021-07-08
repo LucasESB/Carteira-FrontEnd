@@ -32,7 +32,7 @@
 .menu {
     flex: 1;
     background-color: var(--bg-color-3);
-    padding: 40px 20px 0px 25px;
+    padding-top: 40px;
 
     border-top-right-radius: 30px;
     border-top-left-radius: 30px;

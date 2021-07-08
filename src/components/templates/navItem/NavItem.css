@@ -1,6 +1,6 @@
 .menuItem {
-    height: 22px;
-    margin-bottom: 10px;
+    height: 35px;
+    padding-left: 25px;
 
     display: flex;
     align-items: center; 
@@ -14,4 +14,12 @@
     width: 20px;
     height: 20px;
     margin-right: 10px;
+}
+
+.menuItem:hover {
+    background-color: var(--bg-color-4);
+}
+
+.menuItemAtivado {
+    color: var(--color-text-1);
 }
