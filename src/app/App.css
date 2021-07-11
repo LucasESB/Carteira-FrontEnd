@@ -18,25 +18,35 @@ body {
     background-color: var(--bg-color-1);
 }
 
-body, input, button, textarea {
+body, input, button, textarea, a {
     color: var(--color-text-2);
     font: 400 12px Roboto, sans-serif;
+    text-decoration: none;
 }
 
 .app {
+    width: 100vw;
+    height: 100vh;
+
     display: grid;
     grid-template-columns: 235px 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: "menu content";
-    height: 100vh;
 }
 
 aside.menuArea {
     grid-area: menu;
-    background-color: var(--bg-color-2);
+    
 }
 
 main.content {
     grid-area: content;
 }
 
+/* Estilos Globais */
+
+.card {
+    background-color: var(--bg-color-2);
+    border: 1px solid var(--bg-color-4);
+    border-radius: 15px;
+}

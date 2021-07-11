@@ -8,6 +8,8 @@
     text-decoration: none;  
     color: var(--color-text-2); 
     font-size: 12px;
+
+    transition: 0.4s;
 }
 
 .menuItem img {
