@@ -1,0 +1,1 @@
+arquivos de configuração de comunicação com api
