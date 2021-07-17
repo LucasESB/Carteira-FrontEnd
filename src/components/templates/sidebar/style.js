@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const Aside = styled.aside`
-    width: ${props => props.sidebar ? '17%' : '0'};
     max-width: 235px;
-    min-width: 200px;
+    min-width: ${props => props.sidebar ? '170px' : '0px'};
+    width: ${props => props.sidebar ? '17%' : '0px'};
     height: 100%;
     
     background-color: var(--bg-color-2);
@@ -17,24 +17,28 @@ export const Aside = styled.aside`
         height: 216px;
         width: 100%;
 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        display: ${props => props.sidebar ? 'flex' : 'none'};
+
         div {
+            height: clamp(80px , 8vw, 95px);
+            width: clamp(80px , 8vw, 95px);
+
+            background-color: var(--bg-color-3);
             
+            border-radius: 50%;
         }
-    }
 
-    nav {
-        flex: 1;
-        background-color: var(--bg-color-3);
+        strong {
+            margin-top: 20px;
 
-        border-top-left-radius: 30px;
-        border-top-right-radius: 30px;
-
-        padding: 30px 0;
-
-        ul {
-            margin-left: 20px;
-            list-style: none;
-            display: ${props => props.sidebar ? 'block' : 'none'};
+            font-size: var(--text-size-4);
+            font-weight: 700;
+            color: var(--text-color-1);
         }
     }
 `;
@@ -45,7 +49,8 @@ export const IconMenu = styled.div`
     left: 10px;
 
     a {
-        color: #FFF;
+        outline: none;
+        color: var(--text-color-1);
         font-size: 20px;
     }
 `;

@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Aside, IconMenu } from './style';
-import { IconContext } from "react-icons";
-import { HiMenu } from "react-icons/hi";
+import Nav from '../../nav/index';
+import NavItem from '../../navItem/index';
+import { navItemData } from './navItemData';
+
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { HiMenu } from "react-icons/hi";
 
 export class Sidebar extends Component {
     state = {
@@ -27,13 +30,20 @@ export class Sidebar extends Component {
                 <Aside sidebar={sidebar}>
                     <div>
                         <div></div>
+                        <strong>Lucas Eduardo</strong>
                     </div>
 
-                    <nav>
-                        <ul>
-                            <li>Home</li>
-                        </ul>
-                    </nav>
+                    <Nav show={sidebar}>
+                        {
+                            navItemData.map((item, index) =>
+                                <React.Fragment key={index}>
+                                    <NavItem id={index} to={item.url} icon={item.icon}>
+                                        {item.titulo}
+                                    </NavItem>
+                                </React.Fragment>
+                            )
+                        }
+                    </Nav>
                 </Aside>
             </>
         )
