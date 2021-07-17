@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import Roustes from '../routes';
+import { RoutesApp } from '../routes';
 import { Sidebar } from '../components/templates/sidebar/index';
 import Main from '../components/templates/main/index';
 
@@ -11,7 +11,7 @@ export default class App extends Component {
       <BrowserRouter>
         <Sidebar />
         <Main>
-          <Roustes />
+          <RoutesApp />
         </Main>
       </BrowserRouter>
     )
