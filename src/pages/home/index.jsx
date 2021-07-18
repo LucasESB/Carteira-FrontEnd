@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import api from '../../services/api';
 
 import { Div, CardTotalizador, CardInformacao } from './style';
 import { formatarNumberEmReal } from '../../utils/number';
+import { formatarData } from '../../utils/date';
 import GraficoPizza from '../../components/graficoPizza/index';
 
 export default class Home extends Component {
@@ -17,21 +19,35 @@ export default class Home extends Component {
                 economias: 0,
             },
             transacoes: [],
-            receitas: {},
+            receitas: {
+                labels: [],
+                data: []
+            },
             despesas: {}
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        const receitasDespesas = await this.getReceitasDespesas();
+
         const totalizadores = this.loadTotalizadores();
-        const transacoes = this.loadTransacoes();
         const receitas = this.loadReceitas();
 
         this.setState({
             totalizadores,
-            transacoes,
+            transacoes: receitasDespesas,
             receitas
         });
+    }
+
+    async getReceitasDespesas() {
+        try {
+            const response = await api.get("/receitasdespesas");
+            return response.data.documentos;
+        } catch (error) {
+            console.log(error)
+            return [];
+        }
     }
 
     loadTotalizadores() {
@@ -41,89 +57,6 @@ export default class Home extends Component {
             despesas: 1000000,
             economias: 1000000,
         }
-    }
-
-    loadTransacoes() {
-        return [
-            {
-                dataMovimentacao: '10/07/2021',
-                descricao: 'Copia da chave de casa',
-                categoria: 'Renda Variavel',
-                valor: -999999
-            },
-            {
-                dataMovimentacao: '10/07/2021',
-                descricao: 'Copia da chave de casa',
-                categoria: 'Internet',
-                valor: 999999
-            },
-            {
-                dataMovimentacao: '10/07/2021',
-                descricao: 'Copia da chave de casa',
-                categoria: 'Internet',
-                valor: 999999
-            },
-            {
-                dataMovimentacao: '10/07/2021',
-                descricao: 'Copia da chave de casa',
-                categoria: 'Internet',
-                valor: 999999
-            },
-            {
-                dataMovimentacao: '10/07/2021',
-                descricao: 'Copia da chave de casa',
-                categoria: 'Internet',
-                valor: 999999
-            },
-            {
-                dataMovimentacao: '10/07/2021',
-                descricao: 'Copia da chave de casa',
-                categoria: 'Internet',
-                valor: 999999
-            },
-            {
-                dataMovimentacao: '10/07/2021',
-                descricao: 'Copia da chave de casa',
-                categoria: 'Internet',
-                valor: 999999
-            },
-            {
-                dataMovimentacao: '10/07/2021',
-                descricao: 'Copia da chave de casa',
-                categoria: 'Internet',
-                valor: 999999
-            },
-            {
-                dataMovimentacao: '10/07/2021',
-                descricao: 'Copia da chave de casa',
-                categoria: 'Internet',
-                valor: 999999
-            },
-            {
-                dataMovimentacao: '10/07/2021',
-                descricao: 'Copia da chave de casa',
-                categoria: 'Internet',
-                valor: 999999
-            },
-            {
-                dataMovimentacao: '10/07/2021',
-                descricao: 'Copia da chave de casa',
-                categoria: 'Internet',
-                valor: 999999
-            },
-            {
-                dataMovimentacao: '10/07/2021',
-                descricao: 'Copia da chave de casa',
-                categoria: 'Internet',
-                valor: 999999
-            },
-            {
-                dataMovimentacao: '10/07/2021',
-                descricao: 'Copia da chave de casa',
-                categoria: 'Internet',
-                valor: 999999
-            }
-        ]
     }
 
     loadReceitas() {
@@ -175,9 +108,9 @@ export default class Home extends Component {
                             {
                                 transacoes.map((item, index) =>
                                     <div key={index}>
-                                        <span>{item.dataMovimentacao}</span>
+                                        <span>{formatarData(item.dataMovimento)}</span>
                                         <span>{item.descricao}</span>
-                                        <span>{item.categoria}</span>
+                                        <span>{item.categorias.descricao}</span>
                                         <span className="dinheiro">{formatarNumberEmReal(item.valor)}</span>
                                     </div>
                                 )

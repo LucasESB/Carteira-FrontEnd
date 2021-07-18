@@ -8,11 +8,22 @@ const api = axios.create({
 api.interceptors.request.use(async config => {
     const token = getToken();
 
-    if(token){
+    if (token) {
         config.headers.Authorization = `Bearer ${token}`
     }
 
     return config;
 });
+
+const sucesso = res => res;
+const error = err => {
+    if (401 === err.response.status) {
+        window.location = '/signin';
+    } else {
+        Promise.reject(err);
+    }
+}
+
+api.interceptors.response.use(sucesso, error);
 
 export default api;

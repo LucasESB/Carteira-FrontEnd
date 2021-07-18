@@ -41,8 +41,6 @@ export default class SignIn extends Component {
         } catch (error) {
             console.log(error)
         }
-
-        // alert(this.state.usuario + " e " + this.state.senha);
     }
 
     render() {

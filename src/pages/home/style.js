@@ -46,13 +46,16 @@ export const Div = styled.div`
                 div {
                     display: grid;
                     column-gap: clamp(5px, 1vw, 10px);
-                    grid-template-columns: auto minmax(95px,1fr) minmax(53px, 80px) minmax(41.83px, 62.74px);
+                    grid-template-columns: minmax(42.54px, 63.8px) minmax(95px,1fr) minmax(53px, 80px) minmax(41.83px, 62.74px);
                     align-items: center;
 
                     border-bottom: 1px solid var(--bg-color-4);
 
                     span {
                         font-size: var(--text-size-1);
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                     }
 
                     .dinheiro {
