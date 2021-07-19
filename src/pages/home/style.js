@@ -61,6 +61,10 @@ export const Div = styled.div`
                     .dinheiro {
                         text-align: right;
                     }
+
+                    .despesa {
+                        color: var(--text-color-4);
+                    }
                 }
             }
             

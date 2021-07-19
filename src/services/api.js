@@ -17,8 +17,10 @@ api.interceptors.request.use(async config => {
 
 const sucesso = res => res;
 const error = err => {
-    if (401 === err.response.status) {
+    if (err.response && 401 === err.response.status) {
         window.location = '/signin';
+    } else if (err.message === "Network Error") {
+        window.location = '/backenderror';
     } else {
         Promise.reject(err);
     }

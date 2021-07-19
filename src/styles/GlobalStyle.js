@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
         --text-color-1: #F0F6FC;
         --text-color-2: #8B949E;
         --text-color-3: #C9D1D9;
+        --text-color-4: #A74646;
 
         --text-size-1: clamp(0.5rem, 1vw, 0.75rem);       // Menor: 08px Maior: 12px
         --text-size-2: clamp(0.625rem, 1vw, 0.875rem);    // Menor: 10px Maior: 14px

@@ -23,20 +23,24 @@ export default class Home extends Component {
                 labels: [],
                 data: []
             },
-            despesas: {}
+            despesas: {
+                labels: [],
+                data: []
+            },
         }
     }
 
     async componentDidMount() {
         const receitasDespesas = await this.getReceitasDespesas();
-
-        const totalizadores = this.loadTotalizadores();
-        const receitas = this.loadReceitas();
+        const totalizadores = await this.loadTotalizadores(receitasDespesas);
+        const receitas = this.loadReceitas(receitasDespesas);
+        const despesas = this.loadDespesas(receitasDespesas);
 
         this.setState({
             totalizadores,
             transacoes: receitasDespesas,
-            receitas
+            receitas,
+            despesas
         });
     }
 
@@ -45,24 +49,80 @@ export default class Home extends Component {
             const response = await api.get("/receitasdespesas");
             return response.data.documentos;
         } catch (error) {
-            console.log(error)
             return [];
         }
     }
 
-    loadTotalizadores() {
-        return {
-            saldo: 1000000,
-            receitas: 1000000,
-            despesas: 1000000,
-            economias: 1000000,
+    async loadTotalizadores(receitasDespesas) {
+        try {
+            const response = await api.get("/contas");
+            const contas = response.data.documentos;
+
+            const saldo = contas.map(conta => conta.saldo)
+                .reduce((acumulador, valor) => acumulador + valor);
+
+            var receitas = 0,
+                despesas = 0;
+
+            receitasDespesas.forEach(item => {
+                if (item.valor > 0) receitas += item.valor;
+                else despesas -= item.valor;
+            });
+
+            return {
+                saldo,
+                receitas,
+                despesas,
+                economias: 0,
+            }
+        } catch (error) {
+            return {
+                saldo: 0,
+                receitas: 0,
+                despesas: 0,
+                economias: 0,
+            }
         }
     }
 
-    loadReceitas() {
+    loadReceitas(receitasDespesas) {
+        const categorias = [...new Set(receitasDespesas.filter(item => item.valor > 0)
+            .map(item => item.categorias.descricao))];
+
+        const valores = this.getvTotaisPorCategoria(categorias, receitasDespesas);
+
         return {
-            labels: ['Internet', 'Livros', 'Academia'],
-            data: [300.70, 50, 100]
+            labels: [...categorias],
+            data: [...valores]
+        }
+    }
+
+    getvTotaisPorCategoria(categorias, receitasDespesas) {
+        const valores = [];
+
+        categorias.forEach(cat => {
+            var valorTotal = 0;
+
+            receitasDespesas.forEach(item => {
+                if (item.categorias.descricao === cat) valorTotal += item.valor;
+            });
+
+            valores.push(valorTotal);
+        });
+
+        return valores;
+    }
+
+    loadDespesas(receitasDespesas) {
+        const categorias = [...new Set(receitasDespesas.filter(item => item.valor < 0)
+            .map(item => item.categorias.descricao))];
+
+        var valores = this.getvTotaisPorCategoria(categorias, receitasDespesas);
+        valores = valores.map(v => v * (-1));
+
+        return {
+            labels: [...categorias],
+            data: [...valores]
         }
     }
 
@@ -111,7 +171,9 @@ export default class Home extends Component {
                                         <span>{formatarData(item.dataMovimento)}</span>
                                         <span>{item.descricao}</span>
                                         <span>{item.categorias.descricao}</span>
-                                        <span className="dinheiro">{formatarNumberEmReal(item.valor)}</span>
+                                        <span className={`dinheiro ${item.valor < 0 ? 'despesa' : ''}`}>
+                                            {formatarNumberEmReal(item.valor)}
+                                        </span>
                                     </div>
                                 )
                             }
@@ -133,7 +195,7 @@ export default class Home extends Component {
 
                             <div className="graficos">
                                 <GraficoPizza
-                                    data={this.state.receitas}
+                                    data={this.state.despesas}
                                     options={this.optionsGrafico}
                                 />
                             </div>

@@ -5,6 +5,8 @@ import { isAuthenticated } from './services/auth';
 
 import App from './App/index';
 import SignIn from './pages/signin/index';
+import BackendError from './pages/backendError/index';
+
 import Home from './pages/home/index';
 import Transacoes from './pages/transacoes/index';
 import Contas from './pages/contas/index';
@@ -16,6 +18,7 @@ export const Routes = () =>
         <PrivateRoute exact path="/" component={App} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={() => <h1>Pagina para criar uma nova conta para acessar o sistema.</h1>} />
+        <Route path="/backenderror" component={BackendError} />
         <Redirect from="*" to="/" />
     </Switch>
 
