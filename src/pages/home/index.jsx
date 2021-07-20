@@ -6,6 +6,7 @@ import { Div, CardTotalizador, CardInformacao } from './style';
 import { formatarNumberEmReal } from '../../utils/number';
 import { formatarData } from '../../utils/date';
 import GraficoPizza from '../../components/graficoPizza/index';
+import { IoIosAddCircleOutline } from 'react-icons/io';
 
 export default class Home extends Component {
     constructor() {
@@ -138,6 +139,10 @@ export default class Home extends Component {
         const { totalizadores, transacoes } = this.state;
         return (
             <Div>
+                <div className="botAdicionar">
+                    <Link to="#"><IoIosAddCircleOutline /></Link>
+                </div>
+
                 <div className="areaTotalizadores">
                     <CardTotalizador>
                         <span>Saldo</span>

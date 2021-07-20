@@ -2,9 +2,22 @@ import styled from 'styled-components';
 import { Card } from '../../styles/card/index';
 
 export const Div = styled.div`
+    position: relative;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .botAdicionar {
+        position: fixed;
+        right: clamp(30px, 5vw, 60px);
+        bottom: clamp(30px, 5vw, 60px);
+
+        a {
+            font-size: 60px;
+            color: var(--text-color-5);
+        }
+    }
 
     .areaTotalizadores {
         display: flex;
