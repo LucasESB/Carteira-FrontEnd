@@ -140,7 +140,7 @@ export default class Home extends Component {
         return (
             <Div>
                 <div className="botAdicionar">
-                    <Link to="#"><IoIosAddCircleOutline /></Link>
+                    <Link to="/transacoes"><IoIosAddCircleOutline /></Link>
                 </div>
 
                 <div className="areaTotalizadores">

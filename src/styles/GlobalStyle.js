@@ -37,6 +37,20 @@ export const GlobalStyle = createGlobalStyle`
         text-decoration: none;
     }
 
+    input {
+        background-color: rgba(1,4,9,0.5);
+        border: 1px solid var(--bg-color-3);
+        border-radius: 6px;
+
+        color: var(--text-color-3);
+        font-size: var(--text-size-2);
+        line-height: 20px;
+
+        outline: none;
+
+        padding: 5px 12px;
+    }
+
     #root {
         width: 100vw;
         height: 100vh;
