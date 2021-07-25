@@ -39,16 +39,20 @@ export const GlobalStyle = createGlobalStyle`
 
     input {
         background-color: rgba(1,4,9,0.5);
-        border: 1px solid var(--bg-color-3);
+        border: 2px solid var(--bg-color-3);
         border-radius: 6px;
+        outline: none;
+
+        padding: 5px 12px;
 
         color: var(--text-color-3);
         font-size: var(--text-size-2);
         line-height: 20px;
 
-        outline: none;
-
-        padding: 5px 12px;
+        transition: all .1s linear;
+        -webkit-transition: all .1s linear;
+        -moz-transition: all .1s linear;
+        -webkit-appearance: none;
     }
 
     #root {

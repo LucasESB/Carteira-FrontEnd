@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 
 import { Div } from './style';
 import { formatarNumberEmReal } from '../../utils/number';
+import Input from '../input/index';
 
 export default class Transacoes extends Component {
     constructor() {
         super();
 
         this.state = {
-            valor: '0,00',
+            valor: '',
             conta: '',
             categoria: '',
             descricao: '',
@@ -20,24 +21,8 @@ export default class Transacoes extends Component {
 
     handleInputChange(event) {
         const target = event.target;
-        var value = target.value;
+        const value = target.value;
         const name = target.name;
-
-        if (event.target.id === "valor") {
-            var v = value.replaceAll('.', '');
-            v = v.replaceAll(',', '.');
-
-            var indicePonto = v.lastIndexOf('.');
-
-            v = v.substring(0, indicePonto) + v.substring(indicePonto + 1);
-
-            indicePonto += 1;
-
-            v = v.substring(0, indicePonto) + '.' + v.substring(indicePonto);
-
-            value = formatarNumberEmReal(Number.parseFloat(v));
-            console.log(value);
-        }
 
         this.setState({
             [name]: value
@@ -47,36 +32,32 @@ export default class Transacoes extends Component {
     async onSubmit(event) {
         event.preventDefault();
 
-        alert("oii")
+        console.log(this.state)
     }
 
     render() {
         return (
             <Div>
                 <form onSubmit={this.onSubmit}>
-                    <label>
-                        <span>Valor:</span>
-                        <input id="valor" type="text" name="valor" value={this.state.valor}
-                            onChange={this.handleInputChange} />
-                    </label>
+                    <Input placeholder="0,00" label={"Valor"}
+                        autoComplete="off"
+                        type="formatNumber" name="valor" value={this.state.valor}
+                        onChange={this.handleInputChange} required />
 
-                    <label>
-                        <span>Conta:</span>
-                        <input type="text" name="conta" value={this.state.conta}
-                            onChange={this.handleInputChange} />
-                    </label>
+                    <Input placeholder="Selecione a conta de origem" label={"Conta"}
+                        autoComplete="off"
+                        type="text" name="conta" value={this.state.conta}
+                        onChange={this.handleInputChange} required />
 
-                    <label>
-                        <span>Categoria:</span>
-                        <input type="text" name="categoria" value={this.state.categoria}
-                            onChange={this.handleInputChange} />
-                    </label>
+                    <Input placeholder="Selecione uma categoria" label={"Categoria"}
+                        autoComplete="off"
+                        type="text" name="categoria" value={this.state.categoria}
+                        onChange={this.handleInputChange} required />
 
-                    <label>
-                        <span>Descrição:</span>
-                        <input type="text" name="descricao" value={this.state.descricao}
-                            onChange={this.handleInputChange} />
-                    </label>
+                    <Input placeholder="Digite uma descricao para a trasação" label={"Descrição"}
+                        autoComplete="off"
+                        type="text" name="descricao" value={this.state.descricao}
+                        onChange={this.handleInputChange} required />
 
                     <button type="submit">Enviar</button>
                 </form>
