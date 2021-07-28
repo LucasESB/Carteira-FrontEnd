@@ -29,7 +29,8 @@ export const GlobalStyle = createGlobalStyle`
         background-color: var(--bg-color-1);
     }
 
-    body, input, button, textarea, a {
+    body, input, button, textarea, label, 
+    select, a {
         font-family: 'Roboto', sans-serif;
         font-size: var(--text-size-2);
         font-weight: 400;
@@ -37,16 +38,15 @@ export const GlobalStyle = createGlobalStyle`
         text-decoration: none;
     }
 
-    input {
+    input, select {
         background-color: rgba(1,4,9,0.5);
         border: 2px solid var(--bg-color-3);
         border-radius: 6px;
         outline: none;
 
-        padding: 5px 12px;
+        padding: clamp(5px, 0.6vw, 9px) clamp(8px, 1vw, 12px);
 
         color: var(--text-color-3);
-        font-size: var(--text-size-2);
         line-height: 20px;
 
         transition: all .1s linear;

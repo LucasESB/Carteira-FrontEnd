@@ -2,11 +2,14 @@ import styled from 'styled-components';
 
 export const Div = styled.div`
     position: relative;
-    padding-top: 13px;
-    margin-bottom: 15px;
+    padding-top: 11px;
 
     input:focus {
-        border: 2px solid var(--bg-color-3);
+        border-color: var(--bg-color-4);
+    }
+    
+    input:focus + label {
+        color: var(--text-color-3);
     }
 
     input::placeholder {
@@ -14,16 +17,16 @@ export const Div = styled.div`
     }
 
     input:focus:required:invalid {
-        border: 2px solid var(--text-color-4);
+        border-color: var(--text-color-4);
     }
 
     input:required:invalid + label {
         color: var(--text-color-4);
     }
     
-    input:required:invalid + label::before {
+    /* input:required:invalid + label::before {
         content: '*';
-    }
+    } */
 
     input:focus + label, input:not(:placeholder-shown) + label {
         top: 0;
@@ -33,7 +36,7 @@ export const Div = styled.div`
     label {
         position: absolute;
         top: calc(50% - 8px);
-        left: 15px;
+        left: clamp(11px, 1vw,15px);
         
         background-color: var(--bg-color-1);
         
@@ -43,5 +46,10 @@ export const Div = styled.div`
         transition: all .1s linear;
         -webkit-transition: all .1s linear;
         -moz-transition: all .1s linear;
+
+        margin: 0 2px;
+
+        display: flex;
+        flex-direction: row;
     }
 `;
