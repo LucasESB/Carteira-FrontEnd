@@ -39,9 +39,12 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     input, select {
+        width: 100%;
+        
         background-color: rgba(1,4,9,0.5);
         border: 2px solid var(--bg-color-3);
         border-radius: 6px;
+
         outline: none;
 
         padding: clamp(5px, 0.6vw, 9px) clamp(8px, 1vw, 12px);

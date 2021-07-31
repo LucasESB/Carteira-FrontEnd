@@ -15,10 +15,16 @@ export default class Select extends Component {
 
     render() {
         return (
-            <Div>
-                <select {...this.props} onChange={this.handleChange}>
+            <Div className={this.props.className}>
+                <select
+                    {...this.props}
+                    placeholder=" "
+                    onChange={this.handleChange}>
+
+                    <option default value=""></option>
+
                     {this.props.data.map(item =>
-                        <option key={item._id} value={item.descricao}>
+                        <option key={item._id} value={item._id}>
                             {item.descricao}
                         </option>)}
                 </select>

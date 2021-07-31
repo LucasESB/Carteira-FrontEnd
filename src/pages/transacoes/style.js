@@ -5,30 +5,20 @@ export const Div = styled.div`
     height: 100%;
 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
     form {
         width: 400px;
+        height: 400px;
         
         display: flex;
         flex-direction: column;
 
-        label {
-            display: flex;
-            flex-direction: column;
-
-            margin-bottom: 12px;
-
-            span {
-                font-size: var(--text-size-2);
-                margin-bottom: 5px;
-            }
-        }
-
         button {
+            margin-top: 20px;
             height: 30px;
-            
         }
 
     }

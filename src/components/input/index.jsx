@@ -73,7 +73,7 @@ export default class Input extends Component {
 
     render() {
         return (
-            <Div>
+            <Div className={this.props.className}>
                 <input
                     {...this.props}
                     type={this.getType()}

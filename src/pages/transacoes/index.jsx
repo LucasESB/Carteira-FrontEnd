@@ -13,8 +13,9 @@ export default class Transacoes extends Component {
         this.state = {
             valor: '',
             contas: [],
+            categorias: [],
             contaSelecionada: '',
-            categoria: '',
+            categoriaSelecionada: '',
             descricao: '',
         }
 
@@ -24,8 +25,11 @@ export default class Transacoes extends Component {
 
     async componentDidMount() {
         const contas = await this.loadContas();
+        const categorias = await this.loadCategorias();
+
         this.setState({
-            contas
+            contas,
+            categorias
         });
     }
 
@@ -38,13 +42,19 @@ export default class Transacoes extends Component {
         }
     }
 
+    async loadCategorias() {
+        try {
+            const categoriasRes = await api.get('/categorias');
+            return categoriasRes.data.documentos;
+        } catch (error) {
+            return [];
+        }
+    }
+
     handleInputChange(event) {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-
-        //TODO: Ao selecionar um select não esta vindo a campo value dentro do evento
-        console.log(target)
 
         this.setState({
             [name]: value
@@ -52,29 +62,54 @@ export default class Transacoes extends Component {
     }
 
     async onSubmit(event) {
-        event.preventDefault();
+        try {
+            event.preventDefault();
 
-        console.log(this.state)
+            const categorias = this.state.categorias
+                .find(i => i._id === this.state.categoriaSelecionada);
+
+            const contas = this.state.contas
+                .find(i => i._id === this.state.contaSelecionada);
+
+            var valor = this.state.valor.replaceAll('.', '');
+            valor = valor.replaceAll(',', '.');
+
+            if (typeof categorias.despesa !== "undefined") valor = valor * (-1);
+
+            const body = {
+                categorias,
+                contas,
+                valor,
+                descricao: this.state.descricao
+            }
+
+            console.log(body)
+
+            await api.post('receitasdespesas', body);
+        } catch (error) {
+            console.log(error.data)
+        }
     }
 
     render() {
         return (
             <Div>
                 <form onSubmit={this.onSubmit}>
-                    <Input
-                        label={"Valor"} autoComplete="off"
-                        type="formatNumber" name="valor" value={this.state.valor}
+                    <Select
+                        label={"Categoria"}
+                        name="categoriaSelecionada" value={this.state.categoriaSelecionada}
+                        data={this.state.categorias}
                         onChange={this.handleInputChange} required />
 
                     <Select
                         label={"Conta"}
-                        name="conta" value={this.state.contaSelecionada}
+                        name="contaSelecionada" value={this.state.contaSelecionada}
                         data={this.state.contas}
                         onChange={this.handleInputChange} required />
 
                     <Input
-                        label={"Categoria"} autoComplete="off"
-                        type="text" name="categoria" value={this.state.categoria}
+                        label={"Valor"} autoComplete="off"
+                        type="formatNumber" name="valor" value={this.state.valor}
                         onChange={this.handleInputChange} required />
 
                     <Input
