@@ -10,8 +10,7 @@ export const Div = styled.div`
     justify-content: center;
 
     form {
-        width: 400px;
-        height: 400px;
+        width: clamp(260px, 20vw, 400px);
         
         display: flex;
         flex-direction: column;
