@@ -86,6 +86,8 @@ export default class Transacoes extends Component {
             console.log(body)
 
             await api.post('receitasdespesas', body);
+
+            window.location = 'home';
         } catch (error) {
             console.log(error.data)
         }
