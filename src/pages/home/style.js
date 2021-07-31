@@ -10,11 +10,11 @@ export const Div = styled.div`
 
     .botAdicionar {
         position: fixed;
-        right: clamp(30px, 5vw, 60px);
-        bottom: clamp(30px, 5vw, 60px);
+        right: clamp(40px, 5vw, 60px);
+        bottom: clamp(40px, 5vw, 60px);
 
         a {
-            font-size: 60px;
+            font-size: clamp(60px, 10vw,70px);
             color: var(--text-color-5);
         }
     }
