@@ -38,7 +38,7 @@ export const GlobalStyle = createGlobalStyle`
         text-decoration: none;
     }
 
-    input, select {
+    .input, select {
         width: 100%;
         
         background-color: rgba(1,4,9,0.5);

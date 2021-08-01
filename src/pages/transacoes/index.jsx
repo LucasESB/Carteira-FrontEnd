@@ -119,7 +119,7 @@ export default class Transacoes extends Component {
                         type="text" name="descricao" value={this.state.descricao}
                         onChange={this.handleInputChange} required />
 
-                    <button type="submit">Enviar</button>
+                    <button type="submit">Salvar</button>
                 </form>
             </Div>
         )

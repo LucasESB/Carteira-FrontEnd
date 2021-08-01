@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Div } from './style';
+import { Div, InputCheckBoxERadio } from './style';
 import { formatarNumberEmReal } from '../../utils/number';
 
 export default class Input extends Component {
@@ -71,17 +71,35 @@ export default class Input extends Component {
         return Number.parseFloat(valor);
     }
 
+    inputText() {
+        return <Div className={this.props.className}>
+            <input
+                className="input"
+                {...this.props}
+                type={this.getType()}
+                placeholder=" "
+                onChange={this.handleChange}
+            />
+            <label>{this.props.label}</label>
+        </Div>
+    }
+
+    inputCheckBoxERadio() {
+        return <InputCheckBoxERadio >
+            <input id={this.props.htmlFor} {...this.props} />
+            <label htmlFor={this.props.htmlFor}>{this.props.label}</label>
+        </InputCheckBoxERadio>
+    }
+
     render() {
+        var input = this.inputText();
+
+        if (this.props.type === "checkbox" || this.props.type === "radio") {
+            input = this.inputCheckBoxERadio();
+        }
+
         return (
-            <Div className={this.props.className}>
-                <input
-                    {...this.props}
-                    type={this.getType()}
-                    placeholder=" "
-                    onChange={this.handleChange}
-                />
-                <label>{this.props.label}</label>
-            </Div>
+            input
         )
     }
 }
