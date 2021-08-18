@@ -63,18 +63,20 @@ export const InputCheckBoxERadio = styled.div`
         margin: 8px;
         position: relative !important;
 
+        cursor: pointer;
+
         &:before {
             content: '';
             display: block;
             box-sizing: content-box;
             width: 16px;
             height: 16px;
-            border: 2px solid #ccc;
+            border: 2px solid var(--bg-color-4);
             transition: 0.2s border-color ease;
         }
 
         &:checked:before {
-            border-color: #12CBC4;
+            border-color: var(--bg-color-4);
             transition: 0.5s border-color ease;
         }
         
@@ -91,9 +93,9 @@ export const InputCheckBoxERadio = styled.div`
             top: 50%;
             left: 50%;
             transform-origin: 50% 50%;
-            background-color: #12CBC4;
-            width: 16px;
-            height: 16px;
+            background-color: var(--text-color-5);
+            width: 15px;
+            height: 15px;
             border-radius: 100vh;
             transform: translate(-50%, -50%) scale(0);
         }
@@ -126,7 +128,7 @@ export const InputCheckBoxERadio = styled.div`
                 border-radius: 0;
                 transform: translate(-50%, -85%) scale(0) rotate(45deg);
                 background-color: transparent;
-                box-shadow: 4px 4px 0px 0px #12CBC4;
+                box-shadow: 4px 4px 0px 0px var(--text-color-5);
             }
 
             &:checked:after {
@@ -141,7 +143,7 @@ export const InputCheckBoxERadio = styled.div`
             }
             
             &:checked:not(:disabled):before {
-                background-color: #12CBC4;
+                background-color: var(--text-color-5);
             }
 
             &:not(:disabled):after {
@@ -180,5 +182,9 @@ export const InputCheckBoxERadio = styled.div`
                 transform: translate(-50%, -50%) scale(0.8);
             }
         }
+    }
+
+    label {
+        cursor: pointer;
     }
 `;

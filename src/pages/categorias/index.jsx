@@ -13,7 +13,8 @@ export default class Categorias extends Component {
             descricao: '',
             essencial: false,
             investimento: false,
-            receitaDespesa: 'despesa'
+            receitaDespesa: 'despesa',
+            tipoReceitaDespesa: 'Variavel'
 
         }
 
@@ -23,7 +24,7 @@ export default class Categorias extends Component {
 
     handleInputChange(event) {
         const target = event.target;
-        const value = target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
         this.setState({
@@ -31,10 +32,23 @@ export default class Categorias extends Component {
         });
     }
 
-    onSubmit(event) {
-        event.preventDefault();
+    async onSubmit(event) {
+        try {
+            event.preventDefault();
 
-        console.log(this.state)
+            const body = {
+                descricao: this.state.descricao,
+                essencial: this.state.essencial,
+                investimento: this.state.investimento,
+                [this.state.receitaDespesa]: this.state.tipoReceitaDespesa
+            }
+
+            await api.post('categorias', body);
+
+            window.location = 'home';
+        } catch (error) {
+            console.log(error.data)
+        }
     }
 
     render() {
@@ -49,13 +63,13 @@ export default class Categorias extends Component {
                     <Input
                         label="Essencial"
                         htmlFor="essencial"
-                        type="checkbox" name="essencial" value={this.state.essencial}
+                        type="checkbox" name="essencial" checked={this.state.essencial}
                         onChange={this.handleInputChange} />
 
                     <Input
                         label="Investimento"
                         htmlFor="investimento"
-                        type="checkbox" name="investimento" value={this.state.investimento}
+                        type="checkbox" name="investimento" checked={this.state.investimento}
                         onChange={this.handleInputChange} />
 
                     <fieldset id="receitaDespesa" onChange={this.handleInputChange}>
@@ -70,6 +84,21 @@ export default class Categorias extends Component {
                             htmlFor="despesa"
                             defaultChecked
                             type="radio" name="receitaDespesa" value="despesa"
+                            required />
+                    </fieldset>
+
+                    <fieldset id="tipoReceitaDespesa" onChange={this.handleInputChange}>
+                        <Input
+                            label="Variavel"
+                            htmlFor="variavel"
+                            defaultChecked
+                            type="radio" name="tipoReceitaDespesa" value="Variavel"
+                            required />
+
+                        <Input
+                            label="Fixa"
+                            htmlFor="fixa"
+                            type="radio" name="tipoReceitaDespesa" value="Fixa"
                             required />
                     </fieldset>
 

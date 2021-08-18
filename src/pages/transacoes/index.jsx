@@ -83,8 +83,6 @@ export default class Transacoes extends Component {
                 descricao: this.state.descricao
             }
 
-            console.log(body)
-
             await api.post('receitasdespesas', body);
 
             window.location = 'home';

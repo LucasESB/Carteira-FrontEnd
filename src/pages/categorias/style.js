@@ -20,5 +20,10 @@ export const Div = styled.div`
             height: 30px;
         }
 
+        fieldset {
+            display: flex;
+            border-style: none;
+        }
+
     }
 `;
