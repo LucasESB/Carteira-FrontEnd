@@ -47,8 +47,8 @@ export default class Home extends Component {
 
     async getReceitasDespesas() {
         try {
-            const response = await api.get("/receitasdespesas");
-            return response.data.documentos;
+            const { data: { documentos } } = await api.get("/receitasdespesas");
+            return documentos;
         } catch (error) {
             return [];
         }
@@ -56,10 +56,9 @@ export default class Home extends Component {
 
     async loadTotalizadores(receitasDespesas) {
         try {
-            const response = await api.get("/contas");
-            const contas = response.data.documentos;
+            const { data: { documentos } } = await api.get("/contas");
 
-            const saldo = contas.map(conta => conta.saldo)
+            const saldo = documentos.map(conta => conta.saldo)
                 .reduce((acumulador, valor) => acumulador + valor);
 
             var receitas = 0,

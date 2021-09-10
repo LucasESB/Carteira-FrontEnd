@@ -17,6 +17,26 @@ export const GlobalStyle = createGlobalStyle`
         --text-size-2: clamp(0.625rem, 1vw, 0.875rem);    // Menor: 10px Maior: 14px
         --text-size-3: clamp(0.75rem, 1vw, 1rem);         // Menor: 12px Maior: 16px
         --text-size-4: clamp(0.875rem, 1.4vw, 1.125rem);  // Menor: 14px Maior: 18px
+
+        //Telas
+        --zindex-0: 0;
+        --zindex-1: 1;
+        --zindex-2: 2;
+        --zindex-3: 3;
+        --zindex-4: 4;
+        --zindex-5: 5;
+        --zindex-6: 6;
+        --zindex-7: 7;
+        --zindex-8: 8;
+        --zindex-9: 9;
+        //Modal
+        --zindex-10: 10;
+        //Telas de avisos
+        --zindex-11: 11;
+        --zindex-12: 12;
+        --zindex-13: 13;
+        --zindex-14: 14;
+        --zindex-15: 15;
     }
 
     * {

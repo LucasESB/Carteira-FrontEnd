@@ -1,109 +1,82 @@
 import React, { Component } from 'react';
-import api from '../../services/api';
 
 import { Div } from './style';
-import Input from '../../components/input';
+import InserirEditarCategoria from './inserirEditarCategoria/index';
+import api from '../../services/api';
 
 export default class Categorias extends Component {
     constructor() {
         super();
 
         this.state = {
-            descricao: '',
-            essencial: false,
-            investimento: false,
-            receitaDespesa: 'despesa',
-            tipoReceitaDespesa: 'Variavel'
-
+            abrirModal: false,
+            listCategorias: []
         }
 
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.abrirFecharModal = this.abrirFecharModal.bind(this);
+        this.addCategoria = this.addCategoria.bind(this);
+        this.inserirEditar = this.inserirEditar.bind(this);
     }
 
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
+    async componentDidMount() {
+        const listCategorias = await this.getCategorias();
+        this.setState({ listCategorias });
     }
 
-    async onSubmit(event) {
+    async getCategorias() {
         try {
-            event.preventDefault();
-
-            const body = {
-                descricao: this.state.descricao,
-                essencial: this.state.essencial,
-                investimento: this.state.investimento,
-                [this.state.receitaDespesa]: this.state.tipoReceitaDespesa
-            }
-
-            await api.post('categorias', body);
-
-            window.location = 'home';
+            const { data: { documentos } } = await api.get("/categorias");
+            return documentos;
         } catch (error) {
-            console.log(error.data)
+            return [];
         }
+    }
+
+    abrirFecharModal() {
+        this.setState({ abrirModal: !this.state.abrirModal });
+    }
+
+    addCategoria(categoria) {
+        const listCategorias = this.state.listCategorias;
+        listCategorias.push(categoria);
+
+        this.setState({ listCategorias });
+    }
+
+    inserirEditar() {
+        return <InserirEditarCategoria
+            fecharModal={this.abrirFecharModal}
+            addCategoria={this.addCategoria}
+        />;
     }
 
     render() {
         return (
-            <Div>
-                <form onSubmit={this.onSubmit}>
-                    <Input
-                        label="Descrição" autoComplete="off"
-                        type="text" name="descricao" value={this.state.descricao}
-                        onChange={this.handleInputChange} required />
+            <React.Fragment>
+                {this.state.abrirModal ? this.inserirEditar() : ""}
 
-                    <Input
-                        label="Essencial"
-                        htmlFor="essencial"
-                        type="checkbox" name="essencial" checked={this.state.essencial}
-                        onChange={this.handleInputChange} />
+                <Div>
+                    <div id="areaCategorias">
+                        <div id="acoes">
+                            <button >Pesquisar</button> <br />
+                            <button onClick={this.abrirFecharModal}>Adicionar</button> <br />
+                        </div>
 
-                    <Input
-                        label="Investimento"
-                        htmlFor="investimento"
-                        type="checkbox" name="investimento" checked={this.state.investimento}
-                        onChange={this.handleInputChange} />
-
-                    <fieldset id="receitaDespesa" onChange={this.handleInputChange}>
-                        <Input
-                            label="Receita"
-                            htmlFor="receita"
-                            type="radio" name="receitaDespesa" value="receita"
-                            required />
-
-                        <Input
-                            label="Despesa"
-                            htmlFor="despesa"
-                            defaultChecked
-                            type="radio" name="receitaDespesa" value="despesa"
-                            required />
-                    </fieldset>
-
-                    <fieldset id="tipoReceitaDespesa" onChange={this.handleInputChange}>
-                        <Input
-                            label="Variavel"
-                            htmlFor="variavel"
-                            defaultChecked
-                            type="radio" name="tipoReceitaDespesa" value="Variavel"
-                            required />
-
-                        <Input
-                            label="Fixa"
-                            htmlFor="fixa"
-                            type="radio" name="tipoReceitaDespesa" value="Fixa"
-                            required />
-                    </fieldset>
-
-                    <button type="submit">Salvar</button>
-                </form>
-            </Div>
+                        <div id="listCategorias">
+                            <ul>
+                                {
+                                    this.state.listCategorias
+                                        .map(i =>
+                                            <li key={i._id} onClick={this.abrirFecharModal}>
+                                                {i.descricao}
+                                            </li>
+                                        )
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </Div>
+            </React.Fragment>
         )
     }
 }
